@@ -15,8 +15,12 @@ The function should:
   Example createMenuItem('tacos', 8, 'Lunch') should return {name: 'tacos', price: 8, category: 'Lunch'}
 */
 
-function createMenuItem(/*Your code here*/){
-    /*Your code here*/
+function createMenuItem(name, price, category){
+  return {
+    name: name,
+    price: price,
+    category: category
+  };
 }
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 1b: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -28,6 +32,10 @@ Test your createMenuItems function by doing the following:
   
   For example: createMenuItem("pizza",5,"lunch") would return this as the object: {name:"Pizza",price:5,category:"lunch"}
 */
+
+console.log(createMenuItem("Challah French Toast", 7.99, "Breakfast"));
+console.log(createMenuItem("Salmon Sashimi", 9.99, "Lunch"));
+console.log(createMenuItem("Ribeye Steak", 12.99, "Dinner"));
 
 
 
@@ -48,8 +56,21 @@ export const burger = {
   name: "Burger", 
   price: 18, 
   category: "Lunch", 
-  /*Your code here*/
+  discount: function(category) {
+    switch (category) {
+      case 'teacher':
+        return this.price * 0.75;
+      case 'student':
+        return this.price * 0.75;
+      default:
+        return this.price * 0.9;
+    }
+  }
 }
+
+console.log('Teacher discounted price:', burger.discount('teacher'));
+console.log('Student discounted price:', burger.discount('student'));
+console.log('Public discounted price:', burger.discount('public'));
 
 
 
@@ -70,6 +91,9 @@ Using the reviews array above:
   1. log only Julius' feedback to the console - no function needed 
 */
 
+const juliusReview = reviews.find((review) => review.name === 'Julius');
+if (juliusReview) console.log("Julius' Review:", juliusReview);
+
 
 
 
@@ -79,6 +103,14 @@ Using the reviews array above do the following: (no function needed)
   2. log the whole array to the console, make sure the new review is inside of it   
 */
 
+reviews.push({
+  name: "Jonathan",
+  rating: 2.5,
+  feedback: "meh"
+});
+
+console.log(reviews);
+
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 5: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -86,6 +118,10 @@ Reyna's feedback is missing! Use what you know to do the following: (no function
   1. Add this feedback to Reyna's rating - "this place is chill with really cool people, great for getting work done on weekdays"
   2. log the reviews array to the console to check your work
 */
+
+const reynaReview = reviews.find((review) => review.name === 'Reyna');
+reynaReview.feedback = "this place is chill with really cool people, great for getting work done on weekdays";
+console.log(reviews);
 
 
 
@@ -102,8 +138,11 @@ Use the getReviewByIndex function below to do the following:
 */
 
 
-function getReviewByIndex(/*Your code here*/) {
-  /*Your code here*/
+function getReviewByIndex(array, index) {
+  const review = array[index];
+  if (review) {
+    return `${review.name} gave the restaurant a ${review.rating} star review, and their feedback was: ${review.feedback}`;
+  }
 }
 
 
@@ -121,8 +160,11 @@ Use the getLastReview function below to do the following:
 */
 
 
-function getLastReview(/*Your code here*/) {
-  /*Your code here*/
+function getLastReview(array) {
+  const review = array[array.length - 1];
+  if (review) {
+    return `${review.name} gave the restaurant a ${review.rating} star review, and their feedback was: ${review.feedback}`;
+  }
 } 
 
 
@@ -143,9 +185,19 @@ Use the getReviewsByRating function below to do the following:
   ]
 */
 
- function getReviewByRating(/* code here */) {
-    /* code here */
+function getReviewByRating(array, rating) {
+  const ratingMax = Math.floor(rating + 1);
+  const reviewsInRange = [];
+  for (let i = 0; i < array.length; i++) {
+    const review = array[i];
+    if (review.rating >= rating && review.rating < ratingMax) {
+      reviewsInRange.push(review);
+    }
   }
+  return reviewsInRange;
+}
+
+console.log(getReviewByRating(reviews, 3));
 
   
 /* 💪💪💪💪💪💪💪💪💪💪 STRETCH 2: 💪💪💪💪💪💪💪💪💪💪   
@@ -161,9 +213,18 @@ Use the getLongReviews function below to do the following:
   ]
 */
 
-function getLongReviews(/* code here */) {
-    /* code here */
-  }
+function getLongReviews(array) {
+  const longReviews = [];
+  array.forEach(review => {
+    const words = review.feedback.split(' ');
+    if (words && words.length > 15) {
+      longReviews.push(review);
+    }
+  });
+  return longReviews;
+}
+
+console.log(getLongReviews(reviews));
   
 
 /* 💪💪💪💪💪💪💪💪💪💪 STRETCH 3: 💪💪💪💪💪💪💪💪💪💪 
@@ -184,10 +245,19 @@ Use the carMaker function below to do the following:
 */
 
 
-function carMaker(/* code here */) {
-    /* code here */
-    
+function carMaker(odometerMiles) {
+  const car = {
+    odometer: odometerMiles,
+    drive: function(distance) {
+      this.odometer += distance;
+      return this.odometer;
+    }
+  }
+  return car;
 }
+
+const myCar = carMaker(10);
+console.log(myCar.drive(100));
 
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
